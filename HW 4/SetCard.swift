@@ -120,6 +120,18 @@ struct SetCard : Identifiable, Equatable {
     }
     
     
+//    var misMatchColor: Color {
+//        if isMisMatched {
+//           return Color.gray
+//        } else {
+//          return  Color.pink
+//        }
+//    }
+    
+    func getMismatchColor() -> Color {
+        isMisMatched ? Color.gray : Color.pink
+    }
+    
     func getCardOutline() -> Color {
          isSelected ? .green : .red //CORRECT
     }

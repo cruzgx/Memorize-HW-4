@@ -32,6 +32,13 @@ struct ContentView: View {
                                 game.selectCard(card)
                             }
                             .foregroundColor(card.getCardOutline())
+                        
+                        
+                      //  card.getMismatchColor() == Color.gray ? .background(Color.gray) : nil
+                        
+//                        if card.getMismatchColor() == Color.gray {
+//                            .background(Color.gray)
+//                        }
                 
                     }
                 }

@@ -129,14 +129,34 @@ struct SetGame {
                 
                 if selectedCards.count == 3 && isASet(hand: selectedCards) {
                     //remove all selected Cards AND coresspoinding cards in deck.
+                    
                     for i in selectedCards {
                         cards.removeAll(where: { $0 == i })
                         selectedCards.removeAll()
                     }
                     score += 1
-                    
                     return
                 }
+                
+                
+            } else {
+                //CODE HERE IMPLIES THERE WAS NO SET.
+                print("NO SET FOUND")
+                
+                for i in selectedCards.indices {
+                    selectedCards[i].isMisMatched.toggle()
+                }
+                
+                //Obejective: change CARDS[] are seen in SelectedCards[] to unSelected : Maybe try a nest for loop.
+                for i in cards.indices {
+                    for j in selectedCards {
+                        if cards[i] == j {
+                            cards[i].isSelected.toggle()
+                        }
+                    }
+                }
+                
+                selectedCards.removeAll()
             }
             
             print("--------------->")
@@ -145,9 +165,8 @@ struct SetGame {
             }
             print("--------------->")
             
+            
         }
-        
-        
     }
     
     //disable this button if the deck is empty
