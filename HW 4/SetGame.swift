@@ -127,7 +127,7 @@ struct SetGame {
                 cards[idx].isSelected.toggle()
                 selectedCards.append(cards[idx])
                 
-                if selectedCards.count == 3 && isASet(hand: selectedCards) {
+                if selectedCards.count == 3 && wasThereASet(cards: selectedCards) {
                     //remove all selected Cards AND coresspoinding cards in deck.
                     
                     for i in selectedCards {
@@ -198,55 +198,120 @@ struct SetGame {
 //        selectedCards.removeAll()
 //    }
     
-    
+    //OLD NON FUNCTIONING CODE BELOQ
     //Given 3 card Returns true if its a set.
-    private func isASet(hand cards: Array<SetCard>) -> Bool {
-        let card1 = cards[0], card2 = cards[1], card3 = cards[2]
+    //    private func isASet(hand cards: Array<SetCard>) -> Bool {
+    //        let card1 = cards[0], card2 = cards[1], card3 = cards[2]
+    //
+    //        let areAllShapesSameOrDiff : Bool
+    //        let areAllShadesSameOrDiff : Bool
+    //        let areAllColorSameOrDiff  : Bool
+    //        let areAllCountSameOrDiff  : Bool
+    //
+    //
+    //        //Checks if card1, 2 and 3 all have the same shape or all dont
+    //        if (card1.shape == card2.shape  && card2.shape == card3.shape
+    //                || card1.shape != card2.shape && card2.shape != card3.shape && card3.shape != card1.shape){
+    //            areAllShapesSameOrDiff = true  //true iff all same or diff
+    //        } else {
+    //            areAllShapesSameOrDiff = false
+    //        }
+    //
+    //
+    //        //Checks if card1, 2, and 3 have either all the same shade or all diff shade
+    //        if(card1.shade == card2.shade && card2.shade == card3.shade
+    //            || card1.shade != card2.shade && card2.shade != card3.shade && card3.shade != card1.shade){
+    //            areAllShadesSameOrDiff = true
+    //        } else {
+    //            areAllShadesSameOrDiff = false
+    //        }
+    //
+    //
+    //        //Checks if card1, 2, and 3 have either all the same color or all diff shape
+    //        if(card1.color == card2.color && card2.color == card3.color
+    //            || card1.color != card2.color && card2.color != card3.color && card3.color != card1.color){
+    //            areAllColorSameOrDiff = true
+    //        } else {
+    //            areAllColorSameOrDiff = false
+    //        }
+    //
+    //        //Checks to if card1, card 2 and 3 have either all the same ammnt. of shapes or all have a diff ammnt. of shapes
+    //        if (card1.count == card2.count && card2.count == card3.count
+    //            || card1.count != card2.count && card2.count != card3.count && card3.count != card1.count) {
+    //            areAllCountSameOrDiff = true
+    //        } else {
+    //            areAllCountSameOrDiff = false
+    //        }
+    //
+    //        return areAllShapesSameOrDiff && areAllShadesSameOrDiff && areAllColorSameOrDiff && areAllCountSameOrDiff
+    //    }
+    
+    
+    // MARK: Functions used to determine if a set.
+    //Assume a hand always contains 3 cards.
+    
+    
+    // MARK: Shape Functions
+    func areAllShapesSame(hand cards: Array<SetCard>) -> Bool {
+        let A = cards[0], B = cards[1], C = cards[2]
         
-        let areAllShapesSameOrDiff : Bool
-        let areAllShadesSameOrDiff : Bool
-        let areAllColorSameOrDiff  : Bool
-        let areAllCountSameOrDiff  : Bool
+        return A.shape == B.shape && B.shape == C.shape && A.shape == C.shape
+    }
+    
+    func areAllShapesDiff(hand cards: Array<SetCard>) -> Bool {
+        let A = cards[0], B = cards[1], C = cards[2]
         
+        // A != B, B != C, A != C
         
-        //Checks if card1, 2 and 3 all have the same shape or all dont
-        if (card1.shape == card2.shape  && card2.shape == card3.shape
-                || card1.shape != card2.shape && card2.shape != card3.shape && card3.shape != card1.shape){
-            areAllShapesSameOrDiff = true  //true iff all same or diff
-        } else {
-            areAllShapesSameOrDiff = false
-        }
+        return A.shape != B.shape && B.shape != C.shape && A.shape != C.shape
+    }
+
+    // MARK: Shade functions
+    func areAllShadesSame(hand cards: Array<SetCard>) -> Bool {
+        let A = cards[0], B = cards[1], C = cards[2]
         
+        return A.shade == B.shade && B.shade == C.shade && A.shade == C.shade
+    }
+    
+    func areAllShadesDiff(hand cards: Array<SetCard>) -> Bool {
+        let A = cards[0], B = cards[1], C = cards[2]
         
-        //Checks if card1, 2, and 3 have either all the same shade or all diff shade
-        if(card1.shade == card2.shade && card2.shade == card3.shade
-            || card1.shade != card2.shade && card2.shade != card3.shade && card3.shade != card1.shade){
-            areAllShadesSameOrDiff = true
-        } else {
-            areAllShadesSameOrDiff = false
-        }
+        return A.shade != B.shade && B.shade != C.shade && A.shade != C.shade
+    }
+    
+    // MARK: Color functions
+    func areAllColorSame(hand cards: Array<SetCard>) -> Bool {
+        let A = cards[0], B = cards[1], C = cards[2]
         
+        return A.color == B.color && B.color == C.color && A.color == C.color
+    }
+    
+    func areAllColorsDiff(hand cards: Array<SetCard>) -> Bool {
+        let A = cards[0], B = cards[1], C = cards[2]
         
-        //Checks if card1, 2, and 3 have either all the same color or all diff shape
-        if(card1.color == card2.color && card2.color == card3.color
-            || card1.color != card2.color && card2.color != card3.color && card3.color != card1.color){
-            areAllColorSameOrDiff = true
-        } else {
-            areAllColorSameOrDiff = false
-        }
-        
-        //Checks to if card1, card 2 and 3 have either all the same ammnt. of shapes or all have a diff ammnt. of shapes
-        if (card1.count == card2.count && card2.count == card3.count
-            || card1.count != card2.count && card2.count != card3.count && card3.count != card1.count) {
-            areAllCountSameOrDiff = true
-        } else {
-            areAllCountSameOrDiff = false
-        }
-        
-        return areAllShapesSameOrDiff && areAllShadesSameOrDiff && areAllColorSameOrDiff && areAllCountSameOrDiff
+        return A.color != B.color && B.color != C.color && A.color != C.color
     }
     
     
+    // MARK: Count functions
+    func areAllCountsSame(hand cards: Array<SetCard>) -> Bool {
+        let A = cards[0], B = cards[1], C = cards[2]
+        
+        return A.count == B.count && B.count == C.count && A.count == C.count
+    }
     
+    func areAllCountsDiff(hand cards: Array<SetCard>) -> Bool {
+        let A = cards[0], B = cards[1], C = cards[2]
+        
+        return A.count != B.count && B.count != C.count && A.count != C.count
+    }
     
+    func wasThereASet(cards: Array<SetCard>) -> Bool {
+        let shape = areAllShapesSame(hand: cards) || areAllShapesDiff(hand: cards)
+        let shade = areAllShadesSame(hand: cards) || areAllShadesDiff(hand: cards)
+        let color = areAllColorSame(hand: cards)  || areAllColorsDiff(hand: cards)
+        let count = areAllCountsSame(hand: cards) || areAllCountsDiff(hand: cards)
+        
+        return shape && shade && color && count
+    }
 }

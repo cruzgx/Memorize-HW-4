@@ -98,21 +98,20 @@ struct CardView: View {
     
     var body: some View {
         
-            ZStack {
-                let shape = RoundedRectangle(cornerRadius: 25.0)
-                shape.fill().foregroundColor(.white)
-                shape.strokeBorder(lineWidth: 3.0)
+        //Geometry reader messes up cards fonts..
+        
+        ZStack {
+            let shape = RoundedRectangle(cornerRadius: 25.0)
+            shape.fill().foregroundColor(.white)
+            shape.strokeBorder(lineWidth: 3.0)
+            
+            Text(card.getCardContents())
                 
-                Text(card.getCardContents())
-                    
-                    .foregroundColor(card.getCardColor())
-                    //Card Opacity Here.
-                    .opacity(card.getCardOpacity())
-                    //.font(Font.system(size: min(geometry.size.width, geometry.size.height) ))
-                    
-                
-            }
-              
+                .foregroundColor(card.getCardColor())
+                .opacity(card.getCardOpacity())
+                .font(Font.system(size: 25))
+            //.font(Font.system(size: min(geometry.size.width, geometry.size.height) ))
+        }
     }
 }
 
