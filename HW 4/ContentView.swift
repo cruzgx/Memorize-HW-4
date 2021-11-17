@@ -45,6 +45,7 @@ struct ContentView: View {
             }
         }
         .padding(.horizontal)
+        //41:00 in ANIMATION video
     }
     
     
