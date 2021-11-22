@@ -14,40 +14,88 @@ struct ContentView: View {
     
     @State private var dealt = Set<Int>()
     
-    //Aspect VGrid?
     var body: some View {
         VStack {
             ScrollView {
                 header
                 mainGameBody
+                HStack {
+                    deckbBody
+                    discardDeck
+                }
                 userActionButtons
             }
         }
-        
-        
+    }
+    
+    
+    private func deal(_ card: SetCard) {
+        dealt.insert(card.id)
+    }
+    
+    private func isUndealt(_ card: SetCard) -> Bool {
+        !dealt.contains(card.id)
     }
     
     var mainGameBody: some View {
-        LazyVGrid(columns:[GridItem(.adaptive(minimum: 75))]){
+        LazyVGrid(columns:[GridItem(.adaptive(minimum: 75))]) {
             ForEach(game.cards) { card in
                 CardView(card)
                     .aspectRatio(2/3, contentMode: .fit)
+                    .transition(AnyTransition.scale)
+                    .foregroundColor(card.getCardOutline())
+                    .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity).animation(.easeInOut(duration: 3)))
+                    //.transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity).animation(.easeInOut(duration: 1)))
                     .onTapGesture {
                             game.selectCard(card)
                         
                     }
-                    .transition(AnyTransition.scale.animation(Animation.easeOut(duration: 1)))
+                    //.transition(AnyTransition.scale.animation(Animation.easeOut(duration: 1)))
                     //would only apply transitions to cards that were touched?
-                    .foregroundColor(card.getCardOutline())
+                    
                 
               //  card.getMismatchColor() == Color.gray ? .background(Color.gray) : nil
 
             }
+            //The following should show cards come onto the screen...
+        }.onAppear() {
+            withAnimation(.easeInOut(duration: 5)) {
+                for card in game.cards {
+                    deal(card)
+                }
+            }
         }
         .padding(.horizontal)
-        //41:00 in ANIMATION video
     }
     
+    var deckbBody: some View {
+        ZStack {
+            ForEach(game.cards.filter(isUndealt)) { card in
+                CardView(card)
+                    .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .scale))
+            }
+         }
+        .frame(width: CardConstants.undealtWidth, height: CardConstants.undealHeight)
+        .foregroundColor(CardConstants.color)
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 2)) {
+                for card in game.cards {
+                    deal(card)
+                }
+            }
+        }
+    }
+    
+
+    
+    var discardDeck: some View {
+        ZStack {
+            let shape = RoundedRectangle(cornerRadius: 25.0)
+            shape.fill().foregroundColor(.red)
+            shape.strokeBorder(lineWidth: 3.0)
+        }
+        .frame(width: CardConstants.undealtWidth, height: CardConstants.undealHeight)
+    }
     
     var header: some View {
         VStack {
@@ -86,7 +134,19 @@ struct ContentView: View {
         }
         .padding()
     }
+    
+    //Constants here:
+    private struct CardConstants {
+        static let color = Color.red
+        static let aspectRatio: CGFloat = 2/3
+        static let dealDuration: Double = 0.5
+        static let totalDealDuration: Double = 2
+        static let undealHeight: CGFloat = 90
+        static let undealtWidth = undealHeight * aspectRatio
+    }
 }
+
+
 
 
 struct CardView: View {
