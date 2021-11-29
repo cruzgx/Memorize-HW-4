@@ -44,17 +44,17 @@ struct ContentView: View {
                     .aspectRatio(2/3, contentMode: .fit)
                     .transition(AnyTransition.scale)
                     .foregroundColor(card.getCardOutline())
+                //TO DO: Removal transitions dont work.
                     .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity).animation(.easeInOut(duration: 3)))
                     //.transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity).animation(.easeInOut(duration: 1)))
                     .onTapGesture {
                             game.selectCard(card)
-                        
                     }
                     //.transition(AnyTransition.scale.animation(Animation.easeOut(duration: 1)))
                     //would only apply transitions to cards that were touched?
-                    
-                
-              //  card.getMismatchColor() == Color.gray ? .background(Color.gray) : nil
+
+
+              //card.getMismatchColor() == Color.gray ? .background(Color.gray) : nil
 
             }
             //The following should show cards come onto the screen...
@@ -68,6 +68,8 @@ struct ContentView: View {
         .padding(.horizontal)
     }
     
+    
+    
     var deckbBody: some View {
         ZStack {
             ForEach(game.cards.filter(isUndealt)) { card in
@@ -78,10 +80,11 @@ struct ContentView: View {
         .frame(width: CardConstants.undealtWidth, height: CardConstants.undealHeight)
         .foregroundColor(CardConstants.color)
         .onTapGesture {
-            withAnimation(.easeInOut(duration: 2)) {
+            withAnimation(.easeInOut(duration: 1)) {
                 for card in game.cards {
                     deal(card)
                 }
+                game.add3Cards()
             }
         }
     }

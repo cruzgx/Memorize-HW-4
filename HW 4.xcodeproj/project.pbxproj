@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F676E0E9275458F400584F6B /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F676E0E8275458F400584F6B /* AspectVGrid.swift */; };
 		F6D2BED4273CCE1F001A5251 /* HW_4App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D2BED3273CCE1F001A5251 /* HW_4App.swift */; };
 		F6D2BED6273CCE1F001A5251 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D2BED5273CCE1F001A5251 /* ContentView.swift */; };
 		F6D2BED8273CCE20001A5251 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D2BED7273CCE20001A5251 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F676E0E8275458F400584F6B /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		F6D2BED0273CCE1F001A5251 /* HW 4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HW 4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D2BED3273CCE1F001A5251 /* HW_4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HW_4App.swift; sourceTree = "<group>"; };
 		F6D2BED5273CCE1F001A5251 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			children = (
 				F6D2BED3273CCE1F001A5251 /* HW_4App.swift */,
 				F6D2BED5273CCE1F001A5251 /* ContentView.swift */,
+				F676E0E8275458F400584F6B /* AspectVGrid.swift */,
 				F6D2BEE3273CD37E001A5251 /* SetCard.swift */,
 				F6D2BEE6273CD39D001A5251 /* SetCardDeck.swift */,
 				F6D2BEE9273CD3B6001A5251 /* SetGame.swift */,
@@ -152,6 +155,7 @@
 			files = (
 				F6D2BEE4273CD37E001A5251 /* SetCard.swift in Sources */,
 				F6D2BEED273CD3D8001A5251 /* Game.swift in Sources */,
+				F676E0E9275458F400584F6B /* AspectVGrid.swift in Sources */,
 				F6D2BEE7273CD39D001A5251 /* SetCardDeck.swift in Sources */,
 				F6D2BEEA273CD3B6001A5251 /* SetGame.swift in Sources */,
 				F6D2BED6273CCE1F001A5251 /* ContentView.swift in Sources */,
